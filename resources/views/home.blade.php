@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard<i class="far fa-bell"></i></div>
+                <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,10 +14,10 @@
                         </div>
                     @endif
 
+                    {{--
                     @foreach($roles as $role)
                         {{ $role }}
-                    @endforeach
-
+                    @endforeach --}}
                 </div>
             </div>
         </div>

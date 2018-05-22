@@ -1,5 +1,6 @@
 <?php
 
+use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 
@@ -39,7 +40,7 @@ class GroupsTableSeeder extends Seeder
                 factory(App\Group::class)
                     ->create([
                         'letter_group' => ($j == 1) ? 'A' : 'B',
-                        'level_id' => $i
+                        'level_id' =>$faker->unique()->randomElement(App\Level::pluck('id', 'id')->toArray())
                     ]);
             }
         }
@@ -86,12 +87,23 @@ class GroupsTableSeeder extends Seeder
         }
 
         // Creamos los roles
-        factory(App\Role::class)->create(); // Admin
-        factory(App\Role::class)->create([
-            'role' => 'Teacher'
+        Role::create([
+            'name' => 'Admin',
+            'slug' => 'admin',
+            'description' => 'Acceso total',
+            'special' => 'all-access'
         ]);
-        factory(App\Role::class)->create([
-            'role' => 'Student'
+
+        Role::create([
+            'name' => 'Teacher',
+            'slug' => 'teacher',
+            'description' => 'Profesores'
+        ]);
+
+        Role::create([
+            'name' => 'Student',
+            'slug' => 'student',
+            'description' => 'Estudiantes'
         ]);
 
 
@@ -134,14 +146,54 @@ class GroupsTableSeeder extends Seeder
                 'tutor' => true
             ]);
         }
-/*
+
         // A parte del tutor, cada grupo tendrá 3 profesores mas
-        factory(App\Teacher::class)->create([
-            'user_id' => $i,
-            'group_id' => $i - 160
+        factory(App\User::class, 24)->create();
+        $group = 1;
+        for ($i = 169; $i <= 192; $i++) {
+
+            if($group == 4) {$group = 1;}
+
+            factory(App\Teacher::class)->create([
+                'user_id' => $i,
+                'group_id' => $group
+            ]);
+
+            $group++;
+        }
+
+        // Admin
+        factory(App\User::class)->create([
+            'name'           => 'Gabriel',
+            'surname'        => 'Pérez Consarnau',
+            'email'          => 'gapc87@gmail.com',
+            'password'       => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'remember_token' => str_random(10),
         ]);
 
-*/
+        factory(App\RoleUser::class)->create([
+            'role_id' => 1,
+            'user_id' => 193
+        ]);
+
+
+
+
+        // Permisos para Productos
+        DB::table('permission_role')->insert([
+            ['permission_id' => 10, 'role_id' => 3],
+            ['permission_id' => 11, 'role_id' => 3],
+            ['permission_id' => 12, 'role_id' => 3],
+            ['permission_id' => 13, 'role_id' => 3],
+            ['permission_id' => 14, 'role_id' => 3],
+        ]);
+
+        // Permisos (todos) para Admin
+        for ($i = 1; $i < 15; $i++) {
+            DB::table('permission_role')->insert([
+                'permission_id' => $i, 'role_id' => 1
+            ]);
+        }
 
 
     }

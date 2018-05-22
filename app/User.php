@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Caffeinated\Shinobi\Traits\ShinobiTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, ShinobiTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'surname', 'email', 'password',
     ];
 
     /**
@@ -27,51 +28,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function roles() {
-        return $this->belongsToMany('App\Role');
+    public function roles()
+    {
+        return $this->belongsToMany('Caffeinated\Shinobi\Models\Role', 'role_user');
     }
 
-    /**
-     * @param $roles
-     * @return bool
-     */
-    public function authorizeRoles($roles)
-    {
-        if ($this->hasAnyRole($roles)) {
-            return true;
-        }
-        abort(401, 'Esta acción no está autorizada.');
-    }
-
-    /**
-     * @param $roles
-     * @return bool
-     */
-    public function hasAnyRole($roles)
-    {
-        if (is_array($roles)) {
-            foreach ($roles as $role) {
-                if ($this->hasRole($role)) {
-                    return true;
-                }
-            }
-        } else {
-            if ($this->hasRole($roles)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @param $role
-     * @return bool
-     */
-    public function hasRole($role)
-    {
-        if ($this->roles()->where('role', $role)->first()) {
-            return true;
-        }
-        return false;
-    }
 }
