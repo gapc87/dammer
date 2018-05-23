@@ -11,18 +11,28 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
         $courses = Course::all();
-        return view('admin.dashboard')->with('courses', $courses);
+        return view('admin.dashboard', compact('courses'));
     }
 
-    public function getRoles(Request $request)
+    public function getCourse(Course $course)
+    {
+        return view('admin.course.view', compact('course'));
+    }
+
+    public function roles(Request $request)
     {
         // $user = User::find(1);
         $users = User::all();
 
         return view('welcome')->with(['users' => $users]);
+    }
+
+    public function users(Request $request)
+    {
+
     }
 
     public function group(Group $group)
@@ -31,4 +41,6 @@ class AdminController extends Controller
 
         return view('admin.group.index', ['course' => $course, 'group' => $group]);
     }
+
+
 }
