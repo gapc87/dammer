@@ -28,13 +28,45 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    public function teachers()
+    {
+        return $this->belongsTo('App\Teacher');
+    }
+
+    public function students()
+    {
+        return $this->belongsTo('App\Student');
+    }
+
+    public function evaluatedTasks()
+    {
+        return $this->hasMany('App\EvaluatedTask');
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo('App\Teacher');
+    }
+
+    public function student()
+    {
+        return $this->belongsTo('App\Teacher');
+    }
+
+    public function evaluatedTask()
+    {
+        return $this->hasMany('App\EvaluatedTask');
+    }
+
+
     public function roles()
     {
         return $this->belongsToMany('Caffeinated\Shinobi\Models\Role', 'role_user');
     }
-
+/*
     public function teacher() {
         return $this->belongsTo('App\Teacher');
     }
-
+*/
 }

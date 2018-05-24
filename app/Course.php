@@ -9,6 +9,17 @@ class Course extends Model
 
     public function levels()
     {
+        return $this->hasMany('App\Level');
+    }
+
+    public function level()
+    {
+        return $this->hasOne('App\Level');
+    }
+
+/*
+    public function levels()
+    {
         return $this->hasMany('App\Level')->with('groups');
     }
 
@@ -16,7 +27,7 @@ class Course extends Model
         return $this->hasOne('App\Level');
     }
 
-
+*/
 
 
 }

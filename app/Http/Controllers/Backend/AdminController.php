@@ -7,6 +7,7 @@ use App\Group;
 use App\Http\Controllers\Controller;
 use App\Level;
 use App\Module;
+use App\Student;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,14 @@ class AdminController extends Controller
     public function index()
     {
         $courses = Course::all();
+        $levels = Level::all();
+        $groups = Group::all();
+        $users = User::all();
+        $students = Student::all();
+        $modules = Module::all();
+
+        dd($modules[0]->teachers());
+
         return view('admin.dashboard', compact('courses'));
     }
 
