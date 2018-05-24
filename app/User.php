@@ -33,4 +33,8 @@ class User extends Authenticatable
         return $this->belongsToMany('Caffeinated\Shinobi\Models\Role', 'role_user');
     }
 
+    public function teacher() {
+        return $this->belongsTo('App\Teacher');
+    }
+
 }

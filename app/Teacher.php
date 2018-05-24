@@ -10,4 +10,12 @@ class Teacher extends Model
     {
         return $this->hasMany('App\Group');
     }
+
+    public function modules() {
+        return $this->belongsToMany('App\Module');
+    }
+
+    public function user() {
+        return $this->hasOne('App\User');
+    }
 }

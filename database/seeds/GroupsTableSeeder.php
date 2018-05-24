@@ -23,6 +23,7 @@ class GroupsTableSeeder extends Seeder
 
         // Por cada curso tendremos 2 niveles (Ej.: 1DAM, 2DAM)
         // Y por cada nivel 2 grupos (Ej.: 1DAM-A, 1DAM-B, 2DAM-A, 2DAM-B)
+        $count = 1;
         for ($i = 1; $i <= 4; $i++) {
             factory(App\Level::class)
                 ->create([
@@ -36,12 +37,16 @@ class GroupsTableSeeder extends Seeder
                     'level' => 2
                 ]);
 
-            for ($j = 1; $j <= 2; $j++) {
+            for ($j = 1; $j <= 4; $j++) {
                 factory(App\Group::class)
                     ->create([
-                        'letter_group' => ($j == 1) ? 'A' : 'B',
-                        'level_id' =>$faker->unique()->randomElement(App\Level::pluck('id', 'id')->toArray())
+                        'letter_group' => ($j == 1) || ($j == 3) ? 'A' : 'B',
+                        'level_id' =>$count
                     ]);
+
+                if (($j % 2) === 0) {
+                    $count++;
+                }
             }
         }
 

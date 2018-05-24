@@ -14351,3 +14351,7 @@ readers do not read off random characters that represent icons */
   background-color: transparent;
 }
 
+.bb:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+

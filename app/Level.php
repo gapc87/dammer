@@ -12,5 +12,17 @@ class Level extends Model
         return $this->hasMany('App\Group')->with('teachers', 'students');
     }
 
+    public function module() {
+        return $this->belongsToMany('App\Module');
+    }
+
+    public function course() {
+        return $this->belongsTo('App\Course');
+    }
+
+    public function group() {
+        return $this->hasOne('App\Group');
+    }
+
 
 }

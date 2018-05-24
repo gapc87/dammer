@@ -24,11 +24,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth'])->group(function () {
 
     // Rutas para los administradores de la app
-    Route::middleware(['role:admin'])->prefix('admin')->group(function () {
+    Route::middleware(['role:admin'])->prefix('admin')->namespace('Backend')->group(function () {
 
         // /admin/dashboard
-        Route::get('dashboard', 'Backend\AdminController@index')
+        Route::get('dashboard', 'AdminController@index')
             ->name('admin.dashboard');
+
+        Route::get('modules/{level}/', 'AdminController@modules')
+            ->name('admin.modules');
+
 
         Route::resource('courses', 'Backend\admin\CourseController');
 

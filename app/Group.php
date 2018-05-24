@@ -40,4 +40,9 @@ class Group extends Model
     {
         return $this->teachers()->where('teachers.tutor', '=', 1);
     }
+
+    public function modules() {
+        return $this->hasMany('App\Module');
+    }
+
 }

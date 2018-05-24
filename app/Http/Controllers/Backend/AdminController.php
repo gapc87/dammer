@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Course;
 use App\Group;
 use App\Http\Controllers\Controller;
+use App\Level;
+use App\Module;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,15 @@ class AdminController extends Controller
     {
         $courses = Course::all();
         return view('admin.dashboard', compact('courses'));
+    }
+
+    public function modules(Level $level)
+    {
+        $modules = $level->module()->getModels();
+
+        $group = $level->group()->getModel();
+
+        return view('admin.modules.index', compact('modules', 'level', 'group'));
     }
 
     public function getCourse(Course $course)
