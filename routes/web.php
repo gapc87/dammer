@@ -17,25 +17,26 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-
 // Rutas disponibles para usuarios autenticados
 Route::middleware(['auth'])->group(function () {
 
-    // Rutas para los administradores de la app
-    Route::middleware(['role:admin'])->prefix('admin')->namespace('Backend')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', 'DashboardController@index')
+        ->name('dashboard');
 
-        // /admin/dashboard
-        Route::get('dashboard', 'AdminController@index')
-            ->name('admin.dashboard');
+    // Ruta POST que envía el mensaje que escriba el administrador desde el dashboard a todos los usuarios
+    Route::post('dashboard', 'DashboardController@index')
+        ->name('admin.broadcast');
 
-        Route::get('modules/{level}/', 'AdminController@modules')
-            ->name('admin.modules');
+    // Grupo de rutas para los administradores
+    Route::middleware(['role:admin'])
+        ->prefix('admin')
+        ->name('admin.')
+        ->namespace('Admin')
+        ->group(function () {
 
-
-        Route::resource('courses', 'Backend\admin\CourseController');
-
+            Route::resource('teachers', 'TeacherController');
+            Route::resource('students', 'StudentController')->except('view');
 
     });
 

@@ -21,86 +21,148 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-dark bg-dark navbar-expand-md navbar-light fixed">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+
+<nav class="navbar navbar-custom flex-column flex-md-row fixed-top" role="navigation">
+
+    <a class="navbar-brand" href="{{ url('/') }}">
+        {{ config('app.name', 'Laravel') }}
+    </a>
+
+    @guest
+        <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+        <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
+    @else
+
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex navbar-top-links">
+            <li class="dropdown">
+                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" aria-expanded="false">
+                    <em class="fa fa-envelope"></em><span class="label label-danger">15</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @auth
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        @can('products.index')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('products.index') }}">Productos</a>
-                        </li>
-                        @endcan
-                    </ul>
-                    @endauth
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
-                        @else
-                            <li class="nav-item d-md-down-none">
-                                <a class="nav-link" href="#"><i class="far fa-bell navbar-notification"></i><span class="badge badge-pill badge-danger badge-notification">5</span></a>
-                            </li>
-
-                            <li class="nav-item d-md-down-none">
-                                <a class="nav-link" href="#"><i class="far fa-envelope navbar-notification"></i></i><span class="badge badge-pill badge-danger badge-notification">5</span></a>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                <ul class="dropdown-menu dropdown-messages">
+                    <li>
+                        <div class="dropdown-messages-box">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placehold.it/40/30a5ff/fff">
+                            </a>
+                            <div class="message-body">
+                                <small class="pull-right">3 mins ago</small>
+                                <a href="#">
+                                    <strong>John Doe</strong> commented on <strong>your photo</strong>.
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    @role('Admin')
-                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                        Panel de administración
-                                    </a>
-                                    @endrole
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="container-fluid">
-
-            @if(session('info'))
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="alert alert-success">
-                                {{ session('info') }}
+                                <br>
+                                <small class="text-muted">
+                                    1:24 pm - 25/03/2015
+                                </small>
                             </div>
                         </div>
-                    </div>
-                </div>
-            @endif
+                    </li>
+
+                    <li class="divider"></li>
+
+                    <li>
+                        <div class="dropdown-messages-box">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placehold.it/40/30a5ff/fff">
+                            </a>
+                            <div class="message-body">
+                                <small class="pull-right">1 hour ago</small>
+                                <a href="#">
+                                    New message from <strong>Jane Doe</strong>.
+                                </a>
+                                <br>
+                                <small class="text-muted">
+                                    12:27 pm - 25/03/2015
+                                </small>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="divider"></li>
+
+                    <li>
+                        <div class="all-button">
+                            <a href="#">
+                                <em class="fa fa-inbox"></em> <strong>All Messages</strong>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" aria-expanded="false">
+                    <em class="fa fa-bell"></em>
+                    <span class="label label-danger">5</span>
+                </a>
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <em class="fa fa-envelope"></em> 1 New Message
+                                <span class="pull-right text-muted small">3 mins ago</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="divider"></li>
+
+                    <li>
+                        <a href="#">
+                            <div>
+                                <em class="fa fa-heart"></em> 12 New Likes
+                                <span class="pull-right text-muted small">4 mins ago</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="divider"></li>
+
+                    <li>
+                        <a href="#">
+                            <div>
+                                <em class="fa fa-user"></em> 5 New Followers
+                                <span class="pull-right text-muted small">4 mins ago</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    @endguest
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row flex-xl-nowrap">
+        <ul class="flex-row ml-auto mr-4 d-md-none">
+            <li class="drompdown">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </li>
+        </ul>
+        @if(Auth::check())
+        @include('layouts.sidebar')
+        @endif
+        <main class="col-12 col-md-9 col-xl-10">
             @yield('content')
         </main>
     </div>
+</div>
+
+<script>
+    window.onload = function () {
+        var chart1 = document.getElementById("line-chart").getContext("2d");
+        window.myLine = new Chart(chart1).Line(lineChartData, {
+            responsive: true,
+            scaleLineColor: "rgba(0,0,0,.2)",
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleFontColor: "#c5c7cc"
+        });
+    };
+</script>
+
 </body>
 </html>

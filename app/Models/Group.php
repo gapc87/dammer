@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,27 +9,27 @@ class Group extends Model
 
     public function levels()
     {
-        return $this->belongsTo('App\Level');
+        return $this->belongsTo(Level::class);
     }
 
     public function teachers()
     {
-        return $this->hasMany('App\Teacher');
+        return $this->hasMany(Teacher::class);
     }
 
     public function students()
     {
-        return $this->hasMany('App\Student');
+        return $this->hasMany(Student::class);
     }
 
     public function level()
     {
-        return $this->belongsTo('App\Level');
+        return $this->belongsTo(Level::class)->with('course');
     }
 
     public function tutor()
     {
-        return $this->hasOne('App\Teacher')->where('tutor', '=', true);
+        return $this->hasOne(Teacher::class)->where('tutor', '=', true);
     }
 
     /*

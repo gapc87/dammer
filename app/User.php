@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Model\EvaluatedTask;
+use App\Models\Student;
+use App\Models\Teacher;
 use Caffeinated\Shinobi\Traits\ShinobiTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,35 +31,34 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
     public function teachers()
     {
-        return $this->belongsTo('App\Teacher');
+        return $this->hasOne(Teacher::class);
     }
 
     public function students()
     {
-        return $this->belongsTo('App\Student');
+        return $this->hasOne(Student::class);
     }
 
     public function evaluatedTasks()
     {
-        return $this->hasMany('App\EvaluatedTask');
+        return $this->hasMany(EvaluatedTask::class);
     }
 
     public function teacher()
     {
-        return $this->belongsTo('App\Teacher');
+        return $this->hasOne(Teacher::class);
     }
 
     public function student()
     {
-        return $this->belongsTo('App\Teacher');
+        return $this->hasOne(Teacher::class);
     }
 
     public function evaluatedTask()
     {
-        return $this->hasMany('App\EvaluatedTask');
+        return $this->hasMany(EvaluatedTask::class);
     }
 
 

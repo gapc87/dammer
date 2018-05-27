@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Course;
-use App\Group;
+use App\Models\Course;
+use App\Models\Group;
 use App\Http\Controllers\Controller;
-use App\Level;
-use App\Module;
-use App\Student;
-use App\User;
+use App\Models\Level;
+use App\Models\Module;
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -23,7 +23,7 @@ class AdminController extends Controller
         $students = Student::all();
         $modules = Module::all();
 
-        dd($modules[0]->teachers());
+        //dd($modules[0]->teachers());
 
         return view('admin.dashboard', compact('courses'));
     }

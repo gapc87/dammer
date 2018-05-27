@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row flex-xl-nowrap">
-        @include('admin.layouts.sidebar')
+        @include('layouts.sidebar')
         <div class="col-md-10 py-4">
             <div class="card">
                 <div class="card-header">

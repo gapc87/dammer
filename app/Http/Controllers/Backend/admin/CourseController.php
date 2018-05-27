@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Backend\admin;
 
-use App\Course;
-use App\Group;
-use App\Teacher;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {

@@ -1,61 +1,115 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row flex-xl-nowrap">
-        @include('admin.layouts.sidebar')
-        <div class="col-md-10 py-4">
-            <div class="card">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Dashboard admin</h1>
+        </div>
+    </div><!--/.row-->
+
+    @if (session('status'))
+        <div class="row">
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        </div>
+    @endif
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-default">
                 <div class="card-header">
-                    Cursos
-                    <span class="float-right">
-                        <a href="#"><i class="fas fa-plus-circle"></i></a>
-                    </span>
+                    <h3 class="d-inline-block mb-0">Resumen</h3>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span class="d-inline-flex mt-1">Cursos: {{ $courses }}</span>
+                        <a href="#">
+                            <span class="btn btn-secondary btn-sm float-right">Administrar</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="d-inline-flex mt-1">Grupos: {{ $groups }}</span>
+                        <a href="#">
+                            <span class="btn btn-secondary btn-sm float-right">Administrar</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="d-inline-flex mt-1">Profesores: {{ $teachers }}</span>
+                        <a href="#">
+                            <span class="btn btn-secondary btn-sm float-right">Administrar</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="d-inline-flex mt-1">Estudiantes: {{ $students }}</span>
+                        <a href="#">
+                            <span class="btn btn-secondary btn-sm float-right">Administrar</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div><!--/.col-->
+
+
+        <div class="col-md-6">
+            <div class="card card-default chat">
+                <div class="card-header">
+                    <h3 class="d-inline-block mb-0">Chat</h3>
                 </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div class="accordion" id="accordionExample">
-                        @foreach($courses as $course)
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ $course->id }}" aria-expanded="false" aria-controls="collapseOne">
-                                        {{ $course->course_name }}
-                                    </button>
-                                </h5>
+                    <ul>
+                        <li class="left clearfix">
+                            <span class="chat-img float-left">
+								<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle">
+                            </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">John Doe</strong> <small class="text-muted">32 mins ago</small></div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
                             </div>
-
-                            <div id="{{ $course->id }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    @foreach($course->levels as $level)
-
-                                            @foreach($level->groups as $group)
-                                            <div class="d-flex mb-2 bb">
-                                                <div class="align-self-center align-items-center">
-                                                    <b>Curso: </b>{{ $level->level }} <b>Grupo: </b>{{ $group->letter_group }}
-                                                </div>
-                                                <div class="ml-auto p-2">
-                                                    <a class="btn btn-sm btn-secondary mr-1" href="{{ route('admin.modules', $level->id) }}" role="button">Módulos</a>
-                                                    <a class="btn btn-sm btn-secondary mr-1" href="#" role="button">Alumnos</a>
-                                                    <a class="btn btn-sm btn-secondary" href="#" role="button">Profesores</a>
-                                                </div>
-                                            </div>
-                                            @endforeach
-
-                                    @endforeach
-
-
+                        </li>
+                        <li class="right clearfix">
+                            <span class="chat-img float-right">
+								<img src="http://placehold.it/60/dde0e6/5f6468" alt="User Avatar" class="img-circle">
+                            </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="pull-left primary-font">Jane Doe</strong>
+                                    <small class="text-muted">6 mins ago</small>
                                 </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
                             </div>
-                        </div>
-                        @endforeach
+                        </li>
+                        <li class="left clearfix">
+                            <span class="chat-img float-left">
+								<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle">
+                            </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">John Doe</strong>
+                                    <small class="text-muted">32 mins ago</small>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here...">
+                        <span class="input-group-btn">
+							<button class="btn btn-primary btn-md" id="btn-chat">Send</button>
+						</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+        </div><!--/.col-->
+
+    </div><!--/.row-->
+
 @endsection

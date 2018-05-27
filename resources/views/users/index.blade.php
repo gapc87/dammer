@@ -17,7 +17,7 @@
                                 <tr>
                                     <th width="10ox">ID</th>
                                     <th>Nombre</th>
-                                    <th colspan="3">&nbsp;</th>
+                                    <th colspan="3"></th>
                                 </tr>
                             </thread>
                             <tbody>
