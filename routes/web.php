@@ -26,7 +26,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Ruta POST que envía el mensaje que escriba el administrador desde el dashboard a todos los usuarios
     Route::post('dashboard', 'DashboardController@index')
-        ->name('admin.broadcast');
+        ->name('admin.broadcast')
+        ->middleware(['role:admin']);
 
     // Grupo de rutas para los administradores
     Route::middleware(['role:admin'])
@@ -35,46 +36,11 @@ Route::middleware(['auth'])->group(function () {
         ->namespace('Admin')
         ->group(function () {
 
-            Route::resource('teachers', 'TeacherController');
+            Route::resource('teachers', 'TeacherController')->except('view');
             Route::resource('students', 'StudentController')->except('view');
+            Route::resource('users', 'UserController')->except('view');
 
     });
-
-    // Product
-    Route::post('products/store', 'ProductController@store')
-        ->name('products.store')
-        ->middleware('permission:products.create');
-
-
-    Route::get('products', 'ProductController@index')
-        ->name('products.index')
-        ->middleware('permission:products.index');
-
-
-    Route::get('products/create', 'ProductController@create')
-        ->name('products.create')
-        ->middleware('permission:products.create');
-
-
-    Route::put('products/{product}', 'ProductController@update')
-        ->name('products.update')
-        ->middleware('permission:products.edit');
-
-
-    Route::get('products/{product}', 'ProductController@show')
-        ->name('products.show')
-        ->middleware('permission:products.show');
-
-
-    Route::delete('products/{product}', 'ProductController@destroy')
-        ->name('products.destroy')
-        ->middleware('permission:products.destroy');
-
-
-    Route::get('products/{product}/edit', 'ProductController@edit')
-        ->name('products.edit')
-        ->middleware('permission:products.edit');
-
 
     Route::get('users', 'UserController@index')
         ->name('users.index')

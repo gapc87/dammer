@@ -144,9 +144,10 @@
             </li>
         </ul>
         @if(Auth::check())
-        @include('layouts.sidebar')
+            @include('layouts.sidebar')
+            <main class="col-12 col-md-9 col-xl-10">
         @endif
-        <main class="col-12 col-md-9 col-xl-10">
+        <main class="col-12">
             @yield('content')
         </main>
     </div>
